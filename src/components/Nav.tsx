@@ -58,7 +58,7 @@ export default function Nav() {
         </ul>
       </nav>
       <aside
-        className={`absolute right-0 z-20 duration-300 ${
+        className={`fixed right-0 z-20 duration-300 ${
           showMenu ? "translate-x-0" : "translate-x-[200%]"
         } lg:hidden md:portrait:hidden`}
       >

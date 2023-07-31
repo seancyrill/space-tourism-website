@@ -4,12 +4,5 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-  body {
-    @apply fixed h-screen min-w-full overflow-hidden font-body tracking-widest text-white;
-  }
-
-  .root {
-    @apply max-h-screen max-w-[100vw];
-  }
-}
+/* @layer components {
+} */

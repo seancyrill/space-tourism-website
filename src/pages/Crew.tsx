@@ -26,7 +26,7 @@ export default function Crew() {
 
   return (
     <main className="min-h-screen w-screen animate-pageLoad bg-[url('/assets/crew/background-crew-mobile.jpg')] bg-cover bg-center md:bg-[url('/assets/crew/background-crew-tablet.jpg')] lg:bg-[url('/assets/crew/background-crew-desktop.jpg')] landscape:bg-[url('/assets/crew/background-crew-desktop.jpg')]">
-      <ul className="absolute flex">
+      <ul className="fixed flex ">
         {crew.map((crew, i) => (
           <li
             key={i}
