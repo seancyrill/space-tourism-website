@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { technology } from "../../data/data.json";
 import useWindowSize from "../hooks/useWindowSize";
+import { useNavigate } from "react-router";
+import useSwipe from "../hooks/useSwipe";
 
 export default function Technology() {
-  const [technologyIndex, setTechnologyIndex] = useState(0);
+  const [ technologyIndex, setTechnologyIndex ] = useState(0);
   const { height, width } = useWindowSize();
 
   function setTechnology() {
@@ -23,13 +25,28 @@ export default function Technology() {
     }
   }
 
+  const navigate = useNavigate();
+  const swipeHandlers = useSwipe({
+    onSwipedLeft: () =>
+      setTechnologyIndex((prev) =>
+        prev + 1 === technology.length ? prev : prev + 1
+      ),
+    onSwipedRight: () =>
+      setTechnologyIndex((prev) => (prev !== 0 ? prev - 1 : prev)),
+    onSwipedUp: () => navigate("/"),
+    onSwipedDown: () => navigate("/crew"),
+  });
+
   return (
-    <main className="min-h-screen w-screen animate-pageLoad bg-[url('/assets/technology/background-technology-mobile.jpg')] bg-cover bg-center md:bg-[url('/assets/technology/background-technology-tablet.jpg')] lg:bg-[url('/assets/technology/background-technology-desktop.jpg')]">
-      <ul className="absolute flex">
+    <main
+      {...swipeHandlers}
+      className="relative h-screen animate-pageLoad overflow-hidden bg-[url('/assets/technology/background-technology-mobile.jpg')] bg-cover bg-center md:bg-[url('/assets/technology/background-technology-tablet.jpg')] lg:bg-[url('/assets/technology/background-technology-desktop.jpg')]"
+    >
+      <ul className="absolute flex h-full">
         {technology.map((technology, i) => (
           <li
             key={i}
-            className={`flex h-screen w-screen flex-col pt-20 lg:pt-40 md:portrait:pt-40 landscape:pl-6 landscape:md:pl-16 ${
+            className={`flex w-screen flex-col pt-20 lg:pt-40 md:portrait:pt-40 landscape:pl-6 landscape:md:pl-16 ${
               i === technologyIndex ? "scale-100" : "scale-50"
             } text-center transition-all duration-1000 ${setTechnology()}`}
           >

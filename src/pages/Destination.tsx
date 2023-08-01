@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { destinations } from "../../data/data.json";
+import useSwipe from "../hooks/useSwipe";
+import { useNavigate } from "react-router";
 
 export default function Destination() {
   const [destinationIndex, setDestinationIndex] = useState(0);
@@ -24,9 +26,24 @@ export default function Destination() {
     }
   }
 
+  const navigate = useNavigate();
+  const swipeHandlers = useSwipe({
+    onSwipedLeft: () =>
+      setDestinationIndex((prev) =>
+        prev + 1 === destinations.length ? prev : prev + 1
+      ),
+    onSwipedRight: () =>
+      setDestinationIndex((prev) => (prev !== 0 ? prev - 1 : prev)),
+    onSwipedUp: () => navigate("/crew"),
+    onSwipedDown: () => navigate("/"),
+  });
+
   return (
-    <main className="relative h-screen animate-pageLoad overflow-hidden bg-[url('/assets/destination/background-destination-mobile.jpg')] bg-cover bg-center md:bg-[url('/assets/destination/background-destination-tablet.jpg')] lg:bg-[url('/assets/destination/background-destination-desktop.jpg')] landscape:bg-[url('/assets/destination/background-destination-desktop.jpg')]">
-      <ul className="absolute flex h-screen">
+    <main
+      {...swipeHandlers}
+      className="relative h-screen animate-pageLoad overflow-hidden bg-[url('/assets/destination/background-destination-mobile.jpg')] bg-cover bg-center md:bg-[url('/assets/destination/background-destination-tablet.jpg')] lg:bg-[url('/assets/destination/background-destination-desktop.jpg')] landscape:bg-[url('/assets/destination/background-destination-desktop.jpg')]"
+    >
+      <ul className="absolute flex h-full">
         {destinations.map((destination, i) => (
           <li
             key={i}

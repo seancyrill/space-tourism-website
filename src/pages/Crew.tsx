@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { crew } from "../../data/data.json";
+import useSwipe from "../hooks/useSwipe";
+import { useNavigate } from "react-router";
 
 export default function Crew() {
   const [crewIndex, setCrewIndex] = useState(0);
@@ -24,13 +26,25 @@ export default function Crew() {
     }
   }
 
+  const navigate = useNavigate();
+  const swipeHandlers = useSwipe({
+    onSwipedLeft: () =>
+      setCrewIndex((prev) => (prev + 1 === crew.length ? prev : prev + 1)),
+    onSwipedRight: () => setCrewIndex((prev) => (prev !== 0 ? prev - 1 : prev)),
+    onSwipedUp: () => navigate("/technology"),
+    onSwipedDown: () => navigate("/destination"),
+  });
+
   return (
-    <main className="min-h-screen w-screen animate-pageLoad bg-[url('/assets/crew/background-crew-mobile.jpg')] bg-cover bg-center md:bg-[url('/assets/crew/background-crew-tablet.jpg')] lg:bg-[url('/assets/crew/background-crew-desktop.jpg')] landscape:bg-[url('/assets/crew/background-crew-desktop.jpg')]">
-      <ul className="fixed flex ">
+    <main
+      {...swipeHandlers}
+      className="relative h-screen animate-pageLoad overflow-hidden bg-[url('/assets/crew/background-crew-mobile.jpg')] bg-cover bg-center md:bg-[url('/assets/crew/background-crew-tablet.jpg')] lg:bg-[url('/assets/crew/background-crew-desktop.jpg')] landscape:bg-[url('/assets/crew/background-crew-desktop.jpg')]"
+    >
+      <ul className="absolute flex h-full ">
         {crew.map((crew, i) => (
           <li
             key={i}
-            className={`flex h-screen w-screen flex-col pt-20 lg:pt-40 md:portrait:pt-40 ${
+            className={`flex w-screen flex-col pt-20 lg:pt-40 md:portrait:pt-40 ${
               i === crewIndex ? "scale-100" : "scale-50"
             } text-center transition-all duration-1000 ${setCrew()}`}
           >

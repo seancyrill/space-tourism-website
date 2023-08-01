@@ -80,22 +80,22 @@ export default function Nav() {
             </svg>
           </li>
           <Link to={"/"}>
-            <li className="border-b-2 border-transparent py-2 pl-8 duration-300 hover:border-white">
+            <li className="border-b-2 border-transparent py-2 pl-8  backdrop-brightness-75 duration-300 hover:border-white">
               <span className="font-bold">00</span> HOME
             </li>
           </Link>
           <Link to={"/destination"}>
-            <li className="border-b-2 border-transparent py-2 pl-8 duration-300 hover:border-white">
+            <li className="border-b-2 border-transparent py-2 pl-8  backdrop-brightness-75 duration-300 hover:border-white">
               <span className="font-bold">01</span> DESTINATION
             </li>
           </Link>
           <Link to={"/crew"}>
-            <li className="border-b-2 border-transparent py-2 pl-8 duration-300 hover:border-white">
+            <li className="border-b-2 border-transparent py-2 pl-8  backdrop-brightness-75 duration-300 hover:border-white">
               <span className="font-bold">02</span> CREW
             </li>
           </Link>
           <Link to={"/technology"}>
-            <li className="mr-12 border-b-2 border-transparent py-2 pl-8 duration-300 hover:border-white">
+            <li className="mr-12 w-full border-b-2 border-transparent py-2 pl-8  backdrop-brightness-75 duration-300 hover:border-white">
               <span className="font-bold">03</span> TECHNOLOGY
             </li>
           </Link>

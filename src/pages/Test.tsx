@@ -1,12 +1,59 @@
+import { useState } from "react";
+import useSwipe from "../hooks/useSwipe";
+
 export default function test() {
   const cardInfo = [1, 2, 3];
 
+  const [destinationIndex, setDestinationIndex] = useState(0);
+
+  function setDestination() {
+    switch (destinationIndex) {
+      case 0:
+        return "translate-x-0";
+        break;
+      case 1:
+        return "-translate-x-[100%]";
+        break;
+      case 2:
+        return "-translate-x-[200%]";
+        break;
+      case 3:
+        return "-translate-x-[300%]";
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  const swipeHandlers = useSwipe({
+    onSwipedLeft: () =>
+      setDestinationIndex((prev) =>
+        prev + 1 === cardInfo.length ? prev : prev + 1
+      ),
+    onSwipedRight: () =>
+      setDestinationIndex((prev) => (prev !== 0 ? prev - 1 : prev)),
+    onSwipedUp: () => console.log("up"),
+    onSwipedDown: () =>
+      setDestinationIndex((prev) =>
+        prev + 1 === cardInfo.length ? prev + 1 : prev
+      ),
+  });
+
   return (
-    <div className="relative h-screen overflow-hidden bg-slate-600 bg-[url('/assets/home/background-home-desktop.jpg')] ">
-      <ul className="absolute flex h-screen">
+    <div
+      {...swipeHandlers}
+      className="relative h-screen overflow-hidden bg-slate-600 bg-[url('/assets/home/background-home-desktop.jpg')] "
+    >
+      <ul id="items" className="absolute flex h-screen">
         {cardInfo.map((card, i) => (
-          <li key={i} className="w-screen">
-            <p>{`card ${card}`}</p>
+          <li
+            key={i}
+            className={`flex w-screen flex-col pt-20 lg:pt-40 md:portrait:pt-40 landscape:flex-row ${
+              i === destinationIndex ? "scale-100" : "scale-50"
+            } text-center transition-all duration-1000 ${setDestination()}`}
+          >
+            <p className="pt-40 text-4xl"> {`card ${card}`}</p>
             <p className="text-4xl">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis
               inventore laboriosam distinctio molestiae commodi eos quae,

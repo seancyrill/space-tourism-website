@@ -22,7 +22,7 @@ export default {
           "0%": {
             filter: "brightness(0%)",
           },
-          "50%": {
+          "75%": {
             filter: "brightness(120%)",
           },
           "100%": {
